@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  background: #2b2b2b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#canvas {
+  width: 400px;
+  height: 300px;
+  color: white;
+  font-family: serif;
+}
+
+#time {
+  font-size: 200px;
+  line-height: 1;
+}
+
+#date {
+  font-size: 21px;
+}
+
+#greeting {
+  font-size: 28px;
+  color: pink;
+}
+
+#transport {
+  margin-top: 10px;
+  font-size: 16px;
+  white-space: pre;
+  line-height: 1.4;
+}
