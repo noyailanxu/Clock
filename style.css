@@ -46,9 +46,11 @@ html, body {
 
 
 /* אזור עתידי */
-#weather, #trains {
+#weather {
+  font-size: 26px;
   margin-top: 10px;
-  font-size: 20px;
 }
+
+
 
 
