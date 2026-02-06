@@ -23,23 +23,27 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 const WEATHER_API_KEY = "b49ee6bc4e436d11f92da7b5a6702604";
-
-// קואורדינטות של וינה
-const LAT = 48.2082;
-const LON = 16.3738;
+const CITY = "Vienna";
 
 async function updateWeather() {
   const res = await fetch(
-    `https://api.openweathermap.org/data/3.0/onecall?lat=${LAT}&lon=${LON}&units=metric&exclude=minutely,hourly,alerts&appid=${WEATHER_API_KEY}`
+    `https://api.openweathermap.org/data/2.5/forecast?q=${CITY}&units=metric&appid=${WEATHER_API_KEY}`
   );
   const data = await res.json();
 
-  const today = data.daily[0];
+  const today = new Date().getDate();
 
-  const minTemp = Math.round(today.temp.min);
-  const maxTemp = Math.round(today.temp.max);
+  const todaysData = data.list.filter(item =>
+    new Date(item.dt_txt).getDate() === today
+  );
 
-  const condition = today.weather[0].main;
+  if (todaysData.length === 0) return;
+
+  const temps = todaysData.map(item => item.main.temp);
+  const minTemp = Math.round(Math.min(...temps));
+  const maxTemp = Math.round(Math.max(...temps));
+
+  const condition = todaysData[0].weather[0].main;
 
   let emoji = "☀️";
   if (condition === "Clouds") emoji = "☁️";
@@ -52,6 +56,3 @@ async function updateWeather() {
 
 updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
-
-
-
