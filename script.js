@@ -22,7 +22,7 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-const WEATHER_API_KEY = "PUT_YOUR_KEY_HERE";
+const WEATHER_API_KEY = "b49ee6bc4e436d11f92da7b5a6702604";
 
 // קואורדינטות של וינה
 const LAT = 48.2082;
@@ -52,3 +52,4 @@ async function updateWeather() {
 
 updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
+
