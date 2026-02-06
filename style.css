@@ -45,11 +45,18 @@ html, body {
 }
 
 
-/* אזור עתידי */
+/* מזג אוויר */
 #weather {
   font-size: 26px;
   margin-top: 10px;
 }
+/* רכבות */
+#trains {
+  margin-top: 12px;
+  font-size: 22px;
+  line-height: 1.4;
+}
+
 
 
 
