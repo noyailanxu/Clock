@@ -20,13 +20,6 @@ body {
 #canvas {
   width: 400px;
   height: 300px;
-  position: relative;
-}
-
-
-#canvas {
-  width: 400px;
-  height: 300px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -76,6 +69,7 @@ body {
   font-weight: bold;
   margin-bottom: 4px;
 }
+
 
 
 
