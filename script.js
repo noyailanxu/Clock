@@ -22,7 +22,7 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-const WEATHER_API_KEY = "b49ee6bc4e436d11f92da7b5a6702604";
+const WEATHER_API_KEY = "240e10019eb2c278cb8dc78927310213";
 const CITY = "Vienna";
 
 async function updateWeather() {
@@ -56,3 +56,4 @@ async function updateWeather() {
 
 updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
+
