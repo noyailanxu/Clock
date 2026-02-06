@@ -45,40 +45,48 @@ async function updateWeather() {
 updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
 
-async function updateTrains() {
-  const trainsDiv = document.getElementById("trains");
-  trainsDiv.textContent = "Loading trains…";
+const CORS = "https://api.allorigins.win/raw?url=";
 
-  try {
-    const res = await fetch(
-      "https://www.wienerlinien.at/ogd_realtime/monitor?stopId=4120"
-    );
-    const data = await res.json();
+// rbl = מזהי רציפים (כיוון לכל רציף)
+const U4_MEIDLINGER_RBL = [4403, 4404];
+const U6_NIEDERHOF_RBL = [4431, 4432];
 
-    const monitors = data.data.monitors;
+async function fetchStation(rblList, elementId) {
+  let lines = [];
 
-    if (!monitors || monitors.length === 0) {
-      trainsDiv.textContent = "No train data";
-      return;
-    }
+  for (const rbl of rblList) {
+    try {
+      const res = await fetch(
+        CORS +
+        encodeURIComponent(
+          `https://www.wienerlinien.at/ogd_realtime/monitor?rbl=${rbl}`
+        )
+      );
+      const data = await res.json();
+      const monitor = data.data.monitors[0];
 
-    let lines = [];
+      if (!monitor) continue;
 
-    monitors.forEach(monitor => {
       const line = monitor.line.name;
       const direction = monitor.direction;
-      const departures = monitor.departures.departure;
+      const dep = monitor.departures.departure[0];
 
-      if (departures && departures.length > 0) {
-        const minutes = departures[0].departureTime.countdown;
-        lines.push(`${line} → ${direction} · ${minutes} min`);
+      if (dep) {
+        const min = dep.departureTime.countdown;
+        lines.push(`→ ${direction} · ${min} min`);
       }
-    });
-
-    trainsDiv.innerHTML = lines.join("<br>");
-  } catch (e) {
-    trainsDiv.textContent = "Train error";
+    } catch (e) {
+      // שקט – פשוט מדלגים
+    }
   }
+
+  document.getElementById(elementId).innerHTML =
+    lines.length ? lines.join("<br>") : "No data";
+}
+
+function updateTrains() {
+  fetchStation(U4_MEIDLINGER_RBL, "u4-trains");
+  fetchStation(U6_NIEDERHOF_RBL, "u6-trains");
 }
 
 updateTrains();
