@@ -26,14 +26,8 @@ body {
   font-family: "American Typewriter", serif;
   display: flex;
   flex-direction: column;
-  padding: 10px 14px;
-}
-
-/* שורה עליונה: תאריך + מזג אוויר */
-#top {
-  display: flex;
-  justify-content: space-between;
-  font-size: 21px;
+  align-items: center;
+  padding: 8px 12px;
 }
 
 /* שעון */
@@ -41,34 +35,73 @@ body {
   font-family: "Chalkboard SE", "Comic Sans MS", cursive;
   font-size: 200px;
   font-weight: bold;
-  text-align: center;
   line-height: 0.9;
-  margin: 4px 0 0 0;
 }
 
-/* greeting */
-#greeting {
-  text-align: center;
-  font-size: 28px;
-  color: #ff6fae;
+/* תאריך */
+#date {
+  font-size: 21px;
   margin-top: -6px;
 }
 
-/* רכבות */
+/* ברכה */
+#greeting {
+  font-size: 28px;
+  color: #ff6fae;
+  margin-top: 2px;
+}
+
+/* מזג אוויר */
+#weather {
+  font-size: 21px;
+  margin-top: 2px;
+}
+
+/* רכבות – שורה תחתונה */
 #trains {
   margin-top: auto;
-  font-size: 17px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
   line-height: 1.4;
 }
 
 /* תחנה */
 .station {
-  margin-top: 6px;
+  width: 48%;
+}
+
+/* יישור צדדים */
+.station.left {
+  text-align: left;
+}
+
+.station.right {
+  text-align: right;
+}
+
+/* ריבוע קו */
+.line-box {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 2px solid;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+/* צבעים – אפשר לשנות */
+.line-box.u4 {
+  border-color: #00a650; /* ירוק U4 */
+}
+
+.line-box.u6 {
+  border-color: #864504; /* סגול U6 */
 }
 
 /* שם תחנה */
 .station-name {
-  font-weight: bold;
-  font-size: 17px;
+  font-size: 14px;
+  opacity: 0.9;
   margin-bottom: 2px;
 }
