@@ -22,26 +22,33 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-const WEATHER_API_KEY = "b49ee6bc4e436d11f92da7b5a6702604";
-const CITY = "Vienna";
+const WEATHER_API_KEY = "PUT_YOUR_KEY_HERE";
+
+// קואורדינטות של וינה
+const LAT = 48.2082;
+const LON = 16.3738;
 
 async function updateWeather() {
   const res = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=metric&appid=${WEATHER_API_KEY}`
+    `https://api.openweathermap.org/data/3.0/onecall?lat=${LAT}&lon=${LON}&units=metric&exclude=minutely,hourly,alerts&appid=${WEATHER_API_KEY}`
   );
   const data = await res.json();
 
-  const temp = Math.round(data.main.temp);
-  const condition = data.weather[0].main;
+  const today = data.daily[0];
+
+  const minTemp = Math.round(today.temp.min);
+  const maxTemp = Math.round(today.temp.max);
+
+  const condition = today.weather[0].main;
 
   let emoji = "☀️";
-  if (condition.includes("Cloud")) emoji = "⛅";
-  if (condition.includes("Rain")) emoji = "🌧️";
+  if (condition === "Clouds") emoji = "☁️";
+  if (condition === "Rain" || condition === "Drizzle") emoji = "🌧️";
+  if (condition === "Snow") emoji = "❄️";
 
   document.getElementById("weather").textContent =
-    `${temp}°C ${emoji}`;
+    `${minTemp}–${maxTemp}°C ${emoji}`;
 }
 
 updateWeather();
-setInterval(updateWeather, 10 * 60 * 1000);
-
+setInterval(updateWeather, 60 * 60 * 1000);
