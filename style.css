@@ -32,10 +32,9 @@ body {
 
 /* שעון */
 #time {
-  font-family: "Chalkboard SE", "Comic Sans MS", cursive;
+   font-family: 'Patrick Hand SC', cursive;
   font-size: 260px;
-  font-weight: bold;
-  line-height: 0;
+  line-height: 1;
 }
 
 /* תאריך */
@@ -69,7 +68,7 @@ body {
 
 /* תחנה */
 .station {
-  width: 100%;
+  width: 48%;
 }
 
 /* יישור צדדים */
@@ -103,8 +102,9 @@ body {
 .station-name {
   font-size: 20px;
   opacity: 0.9;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
+
 
 
 
