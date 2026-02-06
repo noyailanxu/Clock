@@ -45,50 +45,60 @@ async function updateWeather() {
 updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
 
-const CORS = "https://api.allorigins.win/raw?url=";
+async function fetchDepartures(stopName, elementId) {
+  const url = `https://v5.transport.rest/locations?query=${encodeURIComponent(stopName)}&results=1`;
 
-// stopId רשמיים
-const U4_MEIDLINGER_STOP = 4120;
-const U6_NIEDERHOF_STOP = 4430;
-
-async function fetchStation(stopId, elementId) {
   try {
-    const res = await fetch(
-      CORS +
-      encodeURIComponent(
-        `https://www.wienerlinien.at/ogd_realtime/monitor?stopId=${stopId}`
-      )
-    );
-    const data = await res.json();
-    const monitors = data.data.monitors;
+    const locRes = await fetch(url);
+    const locData = await locRes.json();
 
+    if (!locData[0]?.id) {
+      document.getElementById(elementId).textContent = "No data";
+      return;
+    }
+
+    const stopId = locData[0].id;
+
+    const depRes = await fetch(
+      `https://v5.transport.rest/stops/${stopId}/departures?duration=20`
+    );
+    const depData = await depRes.json();
+
+    let byDirection = {};
+
+    depData.departures.forEach(dep => {
+      if (!dep.direction || dep.line?.product !== "subway") return;
+
+      if (!byDirection[dep.direction]) {
+        byDirection[dep.direction] = [];
+      }
+
+      if (byDirection[dep.direction].length < 2) {
+        byDirection[dep.direction].push(dep.when);
+      }
+    });
+
+    const now = new Date();
     let output = [];
 
-    monitors.forEach(monitor => {
-      const direction = monitor.direction;
-      const deps = monitor.departures.departure;
-
-      if (!deps || deps.length === 0) return;
-
-      const times = deps
-        .slice(0, 2)
-        .map(d => `${d.departureTime.countdown} min`)
-        .join(", ");
-
-      output.push(`→ ${direction} · ${times}`);
-    });
+    for (const dir in byDirection) {
+      const mins = byDirection[dir].map(t =>
+        Math.max(0, Math.round((new Date(t) - now) / 60000)) + " min"
+      );
+      output.push(`→ ${dir} · ${mins.join(", ")}`);
+    }
 
     document.getElementById(elementId).innerHTML =
       output.length ? output.join("<br>") : "No data";
 
-  } catch (e) {
+  } catch {
     document.getElementById(elementId).textContent = "No data";
   }
 }
 
 function updateTrains() {
-  fetchStation(U4_MEIDLINGER_STOP, "u4-trains");
-  fetchStation(U6_NIEDERHOF_STOP, "u6-trains");
+  fetchDepartures("Meidlinger Hauptstraße U", "u4-trains");
+  fetchDepartures("Niederhofstraße U", "u6-trains");
 }
 
 updateTrains();
