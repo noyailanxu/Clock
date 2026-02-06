@@ -1,3 +1,4 @@
+alert("JS LOADED");
 /* ===== שעון ===== */
 function updateClock() {
   const now = new Date();
@@ -88,3 +89,4 @@ function updateTrains() {
 
 updateTrains();
 setInterval(updateTrains, 30 * 1000);
+
