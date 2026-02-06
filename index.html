@@ -1,37 +1,35 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=400, height=300, initial-scale=1.0" />
   <title>Bedside Clock</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <div id="canvas">
-    <div id="clock">00:00</div>
-    <div id="date"> Wednesday · 6 February</div>
- <div id="greeting">Have a nice day💕</div>
 
+    <div id="date"></div>
     <div id="weather"></div>
 
+    <div id="time">00:00</div>
+    <div id="greeting">Have a nice day</div>
+
     <div id="trains">
-  <div class="station">
-    <div class="station-name">U4 Meidlinger Hauptstraße</div>
-    <div id="u4-trains"></div>
+      <div class="station">
+        <div class="station-name">U4 Meidlinger Hauptstraße</div>
+        <div id="u4-trains"></div>
+      </div>
+
+      <div class="station">
+        <div class="station-name">U6 Niederhofstraße</div>
+        <div id="u6-trains"></div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="station">
-    <div class="station-name">U6 Niederhofstraße</div>
-    <div id="u6-trains"></div>
-  </div>
-</div>
-
-
-<script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
