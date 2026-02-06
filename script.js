@@ -1,8 +1,8 @@
 function updateClock() {
   const now = new Date();
 
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
 
   document.getElementById("clock").textContent = `${hours}:${minutes}`;
 
@@ -16,8 +16,9 @@ function updateClock() {
   const date = now.getDate();
   const month = months[now.getMonth()];
 
- document.getElementById("date").textContent =
-  `${dayName} · ${month} ${date}`;
+  document.getElementById("date").textContent =
+    `${dayName} · ${month} ${date}`;
+}
 
+updateClock();
 setInterval(updateClock, 1000);
-
