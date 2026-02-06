@@ -47,46 +47,48 @@ setInterval(updateWeather, 60 * 60 * 1000);
 
 const CORS = "https://api.allorigins.win/raw?url=";
 
-// rbl = מזהי רציפים (כיוון לכל רציף)
-const U4_MEIDLINGER_RBL = [4403, 4404];
-const U6_NIEDERHOF_RBL = [4431, 4432];
+// stopId רשמיים
+const U4_MEIDLINGER_STOP = 4120;
+const U6_NIEDERHOF_STOP = 4430;
 
-async function fetchStation(rblList, elementId) {
-  let lines = [];
+async function fetchStation(stopId, elementId) {
+  try {
+    const res = await fetch(
+      CORS +
+      encodeURIComponent(
+        `https://www.wienerlinien.at/ogd_realtime/monitor?stopId=${stopId}`
+      )
+    );
+    const data = await res.json();
+    const monitors = data.data.monitors;
 
-  for (const rbl of rblList) {
-    try {
-      const res = await fetch(
-        CORS +
-        encodeURIComponent(
-          `https://www.wienerlinien.at/ogd_realtime/monitor?rbl=${rbl}`
-        )
-      );
-      const data = await res.json();
-      const monitor = data.data.monitors[0];
+    let output = [];
 
-      if (!monitor) continue;
-
-      const line = monitor.line.name;
+    monitors.forEach(monitor => {
       const direction = monitor.direction;
-      const dep = monitor.departures.departure[0];
+      const deps = monitor.departures.departure;
 
-      if (dep) {
-        const min = dep.departureTime.countdown;
-        lines.push(`→ ${direction} · ${min} min`);
-      }
-    } catch (e) {
-      // שקט – פשוט מדלגים
-    }
+      if (!deps || deps.length === 0) return;
+
+      const times = deps
+        .slice(0, 2)
+        .map(d => `${d.departureTime.countdown} min`)
+        .join(", ");
+
+      output.push(`→ ${direction} · ${times}`);
+    });
+
+    document.getElementById(elementId).innerHTML =
+      output.length ? output.join("<br>") : "No data";
+
+  } catch (e) {
+    document.getElementById(elementId).textContent = "No data";
   }
-
-  document.getElementById(elementId).innerHTML =
-    lines.length ? lines.join("<br>") : "No data";
 }
 
 function updateTrains() {
-  fetchStation(U4_MEIDLINGER_RBL, "u4-trains");
-  fetchStation(U6_NIEDERHOF_RBL, "u6-trains");
+  fetchStation(U4_MEIDLINGER_STOP, "u4-trains");
+  fetchStation(U6_NIEDERHOF_STOP, "u6-trains");
 }
 
 updateTrains();
