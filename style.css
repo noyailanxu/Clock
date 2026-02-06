@@ -51,10 +51,20 @@ html, body {
   margin-top: 10px;
 }
 #trains {
-  margin-top: 12px;
-  font-size: 22px;
+  margin-top: 14px;
+  font-size: 20px;
   line-height: 1.4;
 }
+
+.station {
+  margin-top: 8px;
+}
+
+.station-name {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
 
 
 
