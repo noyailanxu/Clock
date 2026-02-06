@@ -10,7 +10,7 @@ function updateClock() {
   const dateStr = now.toLocaleDateString("en-US", {
     weekday: "long",
     day: "numeric",
-    month: "normal"
+    month: "long"
   });
 
   document.getElementById("date").textContent = dateStr;
@@ -88,6 +88,7 @@ function updateTrains() {
 
 updateTrains();
 setInterval(updateTrains, 30 * 1000);
+
 
 
 
