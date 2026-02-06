@@ -46,28 +46,39 @@ updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
 
 async function updateTrains() {
-  const res = await fetch(
-    "https://www.wienerlinien.at/ogd_realtime/monitor?stopId=4120"
-  );
-  const data = await res.json();
+  const trainsDiv = document.getElementById("trains");
+  trainsDiv.textContent = "Loading trains…";
 
-  const monitors = data.data.monitors;
+  try {
+    const res = await fetch(
+      "https://www.wienerlinien.at/ogd_realtime/monitor?stopId=4120"
+    );
+    const data = await res.json();
 
-  let lines = [];
+    const monitors = data.data.monitors;
 
-  monitors.forEach(monitor => {
-    const line = monitor.line.name;
-    const direction = monitor.direction;
-    const departures = monitor.departures.departure;
-
-    if (departures.length > 0) {
-      const minutes = departures[0].departureTime.countdown;
-      lines.push(`${line} → ${direction} · ${minutes} min`);
+    if (!monitors || monitors.length === 0) {
+      trainsDiv.textContent = "No train data";
+      return;
     }
-  });
 
-  document.getElementById("trains").innerHTML =
-    lines.slice(0, 4).join("<br>");
+    let lines = [];
+
+    monitors.forEach(monitor => {
+      const line = monitor.line.name;
+      const direction = monitor.direction;
+      const departures = monitor.departures.departure;
+
+      if (departures && departures.length > 0) {
+        const minutes = departures[0].departureTime.countdown;
+        lines.push(`${line} → ${direction} · ${minutes} min`);
+      }
+    });
+
+    trainsDiv.innerHTML = lines.join("<br>");
+  } catch (e) {
+    trainsDiv.textContent = "Train error";
+  }
 }
 
 updateTrains();
