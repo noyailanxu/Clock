@@ -16,9 +16,8 @@ function updateClock() {
   const date = now.getDate();
   const month = months[now.getMonth()];
 
-  document.getElementById("date").textContent =
-    `יום ${dayName} · ${date} ב${month}`;
-}
+ document.getElementById("date").textContent =
+  `${dayName} · ${month} ${date}`;
 
-updateClock();
 setInterval(updateClock, 1000);
+
