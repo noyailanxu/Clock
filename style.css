@@ -25,10 +25,11 @@ html, body {
 
 /* שעון */
 #clock {
-  font-family: "Chalkboard SE", "Comic Sans MS", cursive;
+  font-family: 'Patrick Hand SC', cursive;
   font-size: 200px;
   line-height: 1;
 }
+
 
 /* תאריך */
 #date {
@@ -47,3 +48,4 @@ html, body {
   margin-top: 10px;
   font-size: 20px;
 }
+
