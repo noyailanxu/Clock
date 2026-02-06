@@ -22,33 +22,21 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-const WEATHER_API_KEY = "240e10019eb2c278cb8dc78927310213";
-const CITY = "Vienna";
-
 async function updateWeather() {
   const res = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?q=${CITY}&units=metric&appid=${WEATHER_API_KEY}`
+    "https://api.open-meteo.com/v1/forecast?latitude=48.2082&longitude=16.3738&daily=temperature_2m_min,temperature_2m_max,weathercode&timezone=Europe/Vienna"
   );
   const data = await res.json();
 
-  const today = new Date().getDate();
-
-  const todaysData = data.list.filter(item =>
-    new Date(item.dt_txt).getDate() === today
-  );
-
-  if (todaysData.length === 0) return;
-
-  const temps = todaysData.map(item => item.main.temp);
-  const minTemp = Math.round(Math.min(...temps));
-  const maxTemp = Math.round(Math.max(...temps));
-
-  const condition = todaysData[0].weather[0].main;
+  const minTemp = Math.round(data.daily.temperature_2m_min[0]);
+  const maxTemp = Math.round(data.daily.temperature_2m_max[0]);
+  const code = data.daily.weathercode[0];
 
   let emoji = "☀️";
-  if (condition === "Clouds") emoji = "☁️";
-  if (condition === "Rain" || condition === "Drizzle") emoji = "🌧️";
-  if (condition === "Snow") emoji = "❄️";
+  if ([1,2].includes(code)) emoji = "⛅";
+  if ([3].includes(code)) emoji = "☁️";
+  if ([51,53,55,61,63,65].includes(code)) emoji = "🌧️";
+  if ([71,73,75].includes(code)) emoji = "❄️";
 
   document.getElementById("weather").textContent =
     `${minTemp}–${maxTemp}°C ${emoji}`;
@@ -56,4 +44,3 @@ async function updateWeather() {
 
 updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
-
