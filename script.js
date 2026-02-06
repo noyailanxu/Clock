@@ -22,7 +22,7 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-const WEATHER_API_KEY = "5294bb6140a4bb008551481be287d481";
+const WEATHER_API_KEY = "b49ee6bc4e436d11f92da7b5a6702604";
 
 // קואורדינטות של וינה
 const LAT = 48.2082;
@@ -43,7 +43,6 @@ async function updateWeather() {
 
   let emoji = "☀️";
   if (condition === "Clouds") emoji = "☁️";
-  if (condition === "Sun") emoji = "☀️";
   if (condition === "Rain" || condition === "Drizzle") emoji = "🌧️";
   if (condition === "Snow") emoji = "❄️";
 
@@ -53,5 +52,6 @@ async function updateWeather() {
 
 updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
+
 
 
