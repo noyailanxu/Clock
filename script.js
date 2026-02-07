@@ -45,17 +45,19 @@ updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
 
 
-/* ===== רכבות ===== */
 async function fetchDepartures(stopName, elementId) {
   try {
     const locRes = await fetch(
       `https://v5.transport.rest/locations?query=${encodeURIComponent(stopName)}&results=1`
     );
     const locData = await locRes.json();
-    if (!locData[0]?.id) return;
+    if (!locData[0]?.id) {
+      document.getElementById(elementId).textContent = "No data";
+      return;
+    }
 
     const depRes = await fetch(
-      `https://v5.transport.rest/stops/${locData[0].id}/departures?duration=20`
+      `https://v5.transport.rest/stops/${locData[0].id}/departures?duration=30`
     );
     const depData = await depRes.json();
 
@@ -64,21 +66,31 @@ async function fetchDepartures(stopName, elementId) {
 
     depData.departures.forEach(d => {
       if (d.line?.product !== "subway" || !d.direction) return;
+
+      const timeStr = d.when || d.plannedWhen;
+      if (!timeStr) return;
+
       if (!byDir[d.direction]) byDir[d.direction] = [];
+
       if (byDir[d.direction].length < 2) {
-        byDir[d.direction].push(
-          Math.max(0, Math.round((new Date(d.when) - now) / 60000)) + " min"
+        const mins = Math.max(
+          0,
+          Math.round((new Date(timeStr) - now) / 60000)
         );
+        byDir[d.direction].push(`${mins} min`);
       }
     });
 
-    const out = Object.entries(byDir).map(
+    const output = Object.entries(byDir).map(
       ([dir, mins]) => `→ ${dir} · ${mins.join(", ")}`
     );
 
     document.getElementById(elementId).innerHTML =
-      out.length ? out.join("<br>") : "";
-  } catch {}
+      output.length ? output.join("<br>") : "No data";
+
+  } catch {
+    document.getElementById(elementId).textContent = "No data";
+  }
 }
 
 function updateTrains() {
@@ -88,7 +100,3 @@ function updateTrains() {
 
 updateTrains();
 setInterval(updateTrains, 30 * 1000);
-
-
-
-
