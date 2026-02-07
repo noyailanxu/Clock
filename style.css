@@ -29,7 +29,7 @@ body {
 
 /* ===== שעון ===== */
 #clock-area {
-  height: 130px;
+  height: 100px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -41,7 +41,7 @@ body {
   font-size: 270px;
   font-weight: bold;
   line-height: 1;
-  margin-top: -50px;
+  margin-top: -100px;
 }
 
 /* ===== אזור מידע ===== */
@@ -57,7 +57,7 @@ body {
 #greeting {
   font-size: 26px;
   color: #ff6fae;
-  margin: 12px 0;
+  margin: 20px 0;
 }
 
 #weather {
@@ -75,7 +75,7 @@ body {
 
 /* תחנה */
 .station {
-  width: 0%;
+  width: 40%;
   text-align: center;
 }
 
@@ -85,7 +85,7 @@ body {
   padding: 4px 6px;
   border: 4px solid;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .line-box.u4 {
@@ -108,4 +108,5 @@ body {
   line-height: 1.4;
   color: white; 
 }
+
 
