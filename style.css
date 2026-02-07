@@ -29,7 +29,7 @@ body {
 
 /* ===== שעון ===== */
 #clock-area {
-  height: 165px;
+  height: 150px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -38,10 +38,10 @@ body {
 
 #time {
   font-family: 'Patrick Hand SC', cursive;
-  font-size: 230px;
+  font-size: 270px;
   font-weight: bold;
   line-height: 1;
-  margin-top: -25px;
+  margin-top: -35px;
 }
 
 /* ===== אזור מידע ===== */
@@ -51,7 +51,7 @@ body {
 }
 
 #date {
-  font-size: 21px;
+  font-size: 30px;
 }
 
 #greeting {
@@ -70,12 +70,12 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0 24px 6px;
+  padding: 0 34px 6px;
 }
 
 /* תחנה */
 .station {
-  width: 40%;
+  width: 20%;
   text-align: center;
 }
 
@@ -108,5 +108,6 @@ body {
   line-height: 1.4;
   color: white; /* לא שחור! */
 }
+
 
 
