@@ -47,7 +47,7 @@ body {
 /* ===== אזור מידע ===== */
 #info-area {
   text-align: center;
-  margin-top: -10px;
+  margin-top: 2px;
 }
 
 #date {
@@ -57,7 +57,7 @@ body {
 #greeting {
   font-size: 26px;
   color: #ff6fae;
-  margin: 2px 0;
+  margin: 12px 0;
 }
 
 #weather {
@@ -75,7 +75,7 @@ body {
 
 /* תחנה */
 .station {
-  width: 10%;
+  width: 0%;
   text-align: center;
 }
 
@@ -85,7 +85,7 @@ body {
   padding: 4px 6px;
   border: 4px solid;
   font-weight: bold;
-  margin-bottom: 2px;
+  margin-bottom: 12px;
 }
 
 .line-box.u4 {
@@ -108,3 +108,4 @@ body {
   line-height: 1.4;
   color: white; 
 }
+
