@@ -34,10 +34,13 @@ body {
 
 /* שעון */
 #time {
-   font-family: 'Patrick Hand SC', cursive;
-  font-size: 250px;
-  line-height: 0;
+  font-family: "Chalkboard SE", "Comic Sans MS", cursive;
+  font-size: 240px;
+  font-weight: bold;
+  line-height: 0.9;
+  margin-top: -12px;   /* זה הקסם */
 }
+
 
 /* תאריך */
 #date {
@@ -106,6 +109,7 @@ body {
   opacity: 0.9;
   margin-bottom: 2px;
 }
+
 
 
 
