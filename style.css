@@ -15,86 +15,71 @@ body {
   align-items: center;
 }
 
+/* קנבס */
 #canvas {
   width: 400px;
   height: 300px;
   background: black;
   color: white;
-  position: relative;
   font-family: "American Typewriter", serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* שעון */
+/* ===== שעון ===== */
+#clock-area {
+  height: 180px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 #time {
-  position: absolute;
-  top: 0px;
-  left: 0;
-  right: 0;
-  text-align: center;
   font-family: "Chalkboard SE", "Comic Sans MS", cursive;
   font-size: 200px;
+  font-weight: bold;
   line-height: 1;
+  margin-top: -10px;
 }
 
-/* תאריך */
-#date {
-  position: absolute;
-  top: 190px;
-  left: 0;
-  right: 0;
+/* ===== אזור מידע ===== */
+#info-area {
   text-align: center;
+  margin-top: -10px;
+}
+
+#date {
   font-size: 21px;
 }
 
-/* ברכה */
 #greeting {
-  position: absolute;
-  top: 215px;
-  left: 0;
-  right: 0;
-  text-align: center;
   font-size: 28px;
   color: #ff6fae;
+  margin: 2px 0;
 }
 
-/* מזג אוויר */
 #weather {
-  position: absolute;
-  top: 245px;
-  left: 0;
-  right: 0;
-  text-align: center;
   font-size: 21px;
 }
 
-/* רכבות */
+/* ===== רכבות ===== */
 #trains {
-  position: absolute;
-  bottom: 6px;
-  left: 8px;
-  right: 8px;
+  margin-top: auto;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 15px;
-  line-height: 1.4;
+  padding: 0 14px 6px;
 }
 
 /* תחנה */
 .station {
-  width: 46%;
+  width: 45%;
+  text-align: center;
 }
 
-/* ריחוק בין התחנות */
-.station.left {
-  margin-right: 12px;
-}
-
-.station.right {
-  margin-left: 12px;
-  text-align: right;
-}
-
-/* ריבוע קו */
+/* U4 / U6 */
 .line-box {
   display: inline-block;
   padding: 2px 6px;
@@ -103,11 +88,23 @@ body {
   margin-bottom: 2px;
 }
 
-.line-box.u4 { border-color: #00a650; }
-.line-box.u6 { border-color: #9b59b6; }
+.line-box.u4 {
+  border-color: #00a650;
+}
 
+.line-box.u6 {
+  border-color: #9b59b6;
+}
+
+/* שם תחנה */
 .station-name {
-  font-size: 13px;
-  opacity: 0.85;
-  margin-bottom: 2px;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+/* זמנים */
+.times {
+  font-size: 14px;
+  line-height: 1.4;
+  color: white; /* לא שחור! */
 }
