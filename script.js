@@ -44,7 +44,7 @@ async function updateWeather() {
 updateWeather();
 setInterval(updateWeather, 60 * 60 * 1000);
 
-
+/* ===== רכבות – Transport.rest ===== */
 async function fetchDepartures(stopName, elementId) {
   try {
     const locRes = await fetch(
@@ -52,44 +52,36 @@ async function fetchDepartures(stopName, elementId) {
     );
     const locData = await locRes.json();
     if (!locData[0]?.id) {
-      document.getElementById(elementId).textContent = "No data";
+      document.getElementById(elementId).textContent = "";
       return;
     }
 
     const depRes = await fetch(
-      `https://v5.transport.rest/stops/${locData[0].id}/departures?duration=30`
+      `https://v5.transport.rest/stops/${locData[0].id}/departures?duration=20`
     );
     const depData = await depRes.json();
 
     const now = new Date();
-    let byDir = {};
+    let out = [];
 
     depData.departures.forEach(d => {
-      if (d.line?.product !== "subway" || !d.direction) return;
-
-      const timeStr = d.when || d.plannedWhen;
-      if (!timeStr) return;
-
-      if (!byDir[d.direction]) byDir[d.direction] = [];
-
-      if (byDir[d.direction].length < 2) {
-        const mins = Math.max(
-          0,
-          Math.round((new Date(timeStr) - now) / 60000)
-        );
-        byDir[d.direction].push(`${mins} min`);
+      if (d.line?.product === "subway" && d.direction) {
+        const departureTime = d.when || d.plannedWhen;
+        if (departureTime) {
+          const mins = Math.max(
+            0,
+            Math.round((new Date(departureTime) - now) / 60000)
+          );
+          if (out.length < 2) {
+            out.push(`→ ${d.direction} · ${mins} min`);
+          }
+        }
       }
     });
 
-    const output = Object.entries(byDir).map(
-      ([dir, mins]) => `→ ${dir} · ${mins.join(", ")}`
-    );
-
-    document.getElementById(elementId).innerHTML =
-      output.length ? output.join("<br>") : "No data";
-
+    document.getElementById(elementId).innerHTML = out.join("<br>");
   } catch {
-    document.getElementById(elementId).textContent = "No data";
+    document.getElementById(elementId).textContent = "";
   }
 }
 
